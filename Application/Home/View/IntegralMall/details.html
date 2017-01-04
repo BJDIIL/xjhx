@@ -1,0 +1,229 @@
+<extend name="Common/layout"/>
+<block name="title"><title>积分商城</title></block>
+<block name="css">
+    <link rel="stylesheet" href="__PUBLIC__/css/base2016.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/itemmain.css">
+    <style>
+        .grey-color {
+            background-color: grey;
+        }
+    </style>
+</block>
+<block name="content">
+    <body id="body" class="s">
+    <a name="top"></a>
+    <header>
+        <div class="m_common_new_top">
+            <!-- 新版商详头部开始 -->
+            <div id="m_common_header">
+                <header class="jd-header" style="width: 375px;">
+                    <div class="jd-header-new-bar">
+                        <div id="m_common_header_goback" class="jd-header-icon-back">
+                            <span></span>
+                        </div>
+                        <!-- <div class="jd-header-title">商品详情</div> -->
+                        <ul class="jd-header-title" id="header-tabs">
+                            <li class="header-tab-item J_ping">
+                                <p class="header-tab-title   header-tab-selected" style="width: 60px;" id="detailView">
+                                    商品详情</p>
+                            </li>
+                        </ul>
+                        <div class="header-bar-border"></div>
+                    </div>
+                </header>
+            </div>
+            <!-- 新版商详头部结束 -->
+        </div>
+
+    </header>
+    <button id="tempforsuite" style="display:none;"></button>
+    <div id="mainLayout">
+        <div id="mainStay" class="new-wt">
+            <div class="miblebox" id="goods-img-box">
+                <div class="hold-div-top" style="height: 44px;"></div>
+                <div class="header-slider" style="width: 375px;">
+                    <div class="header-slider-con"
+                         style="width: 1125px; height: 2539px; transform: translate3d(0px, 0px, 0px); transition: 500ms ease;">
+                        <li class="header-slider-item" style="width: 375px; height: 2539px;">
+                            <div class="page-content" id="mainLayout">
+                                <!-- 焦点图片 -->
+                                <div class="scroll-imgs">
+                                    <div id="slide" class="slide">
+                                        <ul data-slide-ul="firstUl" style="width: 1600px;">
+                                            <li data-ul-child="child" class="J_ping active">
+                                                <img alt="{$data.desc}"
+                                                     src="{$data.image}"
+                                                     class="J_ping">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="goods-part bdr-tb price-floor">
+                                    <!-- 名称 、价格start -->
+                                    <!-- 楼层样式修改 添加bord样式 mjs 20151112-->
+                                    <div class="basic-info bdr-b borb">
+                                        <!--名称-->
+                                        <div class="prod-title">
+                                            <a class="detailInfoClick J_ping">
+											<span class="title-text">
+                                                {$data.name}
+											</span>
+                                            </a>
+                                        </div>
+                                        <!-- 价格 -->
+                                        <div class="prod-price-wrap">
+                                            <div class="prod-price">
+												<span class="yang-pic-price" id="jdPrice-copy">
+                                                    <span class="big-price">
+                                                          <if condition="$data.is_sec eq 1">
+                                                              {$data.sec_integral}
+                                                              <else/>
+                                                              {$data.integral}
+                                                          </if>
+                                                        积分
+                                                       </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <if condition="$data.is_sec eq 1">
+                                            <!--掌上活动 -->
+                                            <!-- 秒杀位置样式调整 mjs 20151113 -->
+                                            <div class="prod-seckill">																					                                                <span
+                                                    class="phone-exclusive-pos">
+													<i class="label-icon-div">
+                                                        <i class="label-icon phone-exclusive-icon"></i>
+                                                        <span class="label-text">省<php>echo
+                                                            $data['integral']-$data['sec_integral'];
+                                                        </php>积分</span>
+                                                    </i>
+												</span>
+
+                                            </div>
+                                        </if>
+                                    </div>
+                                    <!-- 名称 、价格end -->
+                                    <!-- 调整样式分割线结束位置   mjs 20151112 -->
+                                </div>
+                                <div class="goods-part bdr-tb mar-t">
+
+                                    <!-- 规格与促销中间加一灰条   增加样式bd-t    mjs  20151030 -->
+                                    <!--规格 start-->
+                                    <!--新版规格start-->
+                                    <div class="prod-spec bdr-b" id="prodSpecArea">
+
+                                        <!-- 20151114 属性容器-->
+                                        <div class="nature-container" id="natureCotainer">
+
+                                            <!--数量-->
+                                            <div class="pro-count">
+                                                <span class="part-note-msg">数量</span>
+
+                                                <div class="quantity-wrapper">
+                                                    <input type="hidden" id="limitSukNum1025423798" value="200">
+                                                    <a class="quantity-decrease limited  J_ping"
+                                                       onclick="minus()">
+                                                        <em id="minus">-</em>
+                                                    </a>
+                                                    <input type="tel" class="quantity" size="4" value="{$count}"
+                                                           id="number"
+                                                           onblur="modify();">
+                                                    <a class="quantity-increase J_ping"
+                                                       id="quantityPlus" onclick="plus()">
+                                                        <em id="plus">+</em>
+                                                    </a>
+                                                </div>
+                                                <span class="lowestbuy-tip"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!--规格 end-->
+                                </div>
+                                <!-- 样式分割线 -->
+                            </div>
+                        </li>
+
+
+                    </div>
+                </div>
+
+
+                <div class="hold-div-bottom" style="display:none"></div>
+
+                <div id="cart1" class="cart-concern-btm-fixed five-column">
+                    <div class="concern-cart">
+                        <!--Jimi客服(hasJimi&&notOnline)-->
+                        <a class="dong-dong-icn J_ping" id="imBottom"
+                           href="#">
+                            <em class="btm-act-icn"></em>
+							<span class="focus-info">
+
+															</span>
+                        </a>
+                        <a class="love-heart-icn J_ping">
+                            <em class="btm-act-icn focus-out" id="attentionFocus"></em>
+                            <i class="focus-scale"></i>
+                            <span class="focus-info">  </span>
+                        </a>
+                        <a class="cart-car-icn">
+                            <em class="btm-act-icn" id="shoppingCart">
+                                <i class="order-numbers" id="carNum"></i>
+                            </em>
+                            <span class="focus-info"></span>
+                        </a>
+                    </div>
+                    <div class="action-list">
+                        <a class="yellow-color" href="__CONTROLLER__/index">
+                            返回
+                        </a>
+                        <!--不是秒杀-->
+                        <if condition="($data.is_sec eq 0) AND ($data.stock neq 0)">
+                            <a class="red-color "
+                               onclick="window.location.href='__CONTROLLER__/order'+'/count/'+$('#number').val();"
+                               href="javascript:;">
+                                立即兑换
+                            </a>
+                        </if>
+
+                        <if condition="($data.is_sec eq 0) AND ($data.stock eq 0)">
+                            <a class="grey-color"
+                               href="javascript:;">
+                                已售罄
+                            </a>
+                        </if>
+                        <!--尚未秒杀完毕-->
+                        <if condition="($data.is_sec eq 1) AND ($data.sec_stock neq 0)">
+                            <a class="red-color "
+                               onclick="window.location.href='__CONTROLLER__/order'+'/count/'+$('#number').val();"
+                               href="javascript:;">
+                                立即秒杀
+                            </a>
+                        </if>
+
+                        <if condition="($data.is_sec eq 1) AND ($data.sec_stock eq 0)">
+                            <a class="grey-color"
+                               href="javascript:;">
+                                已秒杀完
+                            </a>
+                        </if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin:0 auto 50px;"></div>
+    <input type="hidden" id="miaoshaRemainTime" value="{$data['miaoshaRemainTime']}">
+    <input type="hidden" id="clientInfo" value="">
+    <script src="__PUBLIC__/js/ZPcommon.min.js?v=jd201612154855" charset="UTF-8"></script>
+    <script type="text/javascript">window.jQuery = window.Zepto;</script>
+    <script src="__PUBLIC__/js/tools.min.js?v=jd201612154855" charset="UTF-8"></script>
+    <script src="__PUBLIC__/js/view.min.js?v=jd201612154855" charset="UTF-8"></script>
+    </body>
+</block>
+<block name="footer"></block>
+<block name="js">
+    <script type="text/javascript" src="__PUBLIC__/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/weui.min.js"></script>
+    <!--<script type="text/javascript" src="__PUBLIC__/js/example.js"></script>-->
+</block>

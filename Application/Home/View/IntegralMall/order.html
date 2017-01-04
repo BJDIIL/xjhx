@@ -1,0 +1,309 @@
+<extend name="Common/layout"/>
+<block name="title"><title>积分商城</title></block>
+<block name="css">
+    <link rel="stylesheet" href="__PUBLIC__/css/base2016.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/itemmain.css">
+
+</block>
+<block name="content">
+    <header>
+        <div class="m_common_new_top">
+            <!-- 新版商详头部开始 -->
+            <div id="m_common_header">
+                <header class="jd-header">
+                    <div class="jd-header-new-bar">
+                        <div id="m_common_header_goback" onclick="javascript:history.back();"
+                             class="jd-header-icon-back">
+                            <span></span>
+                        </div>
+                        <!-- <div class="jd-header-title">商品详情</div> -->
+                        <ul class="jd-header-title" id="header-tabs">
+                            <li class="header-tab-item J_ping" report-pageparam="1422728"
+                                report-eventid="MProductdetail_ProductTab" report-eventlevel="5">
+                                <p class="header-tab-title   header-tab-selected" style="width:60px;" id="detailView">
+                                    确认订单</p>
+                            </li>
+                        </ul>
+                        <div class="header-bar-border"></div>
+                    </div>
+                </header>
+            </div>
+            <!-- 新版商详头部结束 -->
+        </div>
+    </header>
+    <div id="mainLayout">
+        <div id="mainStay" class="new-wt">
+            <div class="miblebox" id="goods-img-box">
+                <br>
+                <br>
+
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                            <img src="{$data.image}" style="width: 50px;display: block">
+                            <!--<span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</span>-->
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>{$data.name}</p>
+
+                            <p style="font-size: 13px;color: #888888;">{$data.desc}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells">
+                    <div class="weui-cell weui-cell_access" id="showAndroidActionSheet">
+                        <div class="weui-cell__bd">
+                            <span style="vertical-align: middle">收货方式</span>
+                            <!--<span class="weui-badge" style="margin-left: 5px;"></span>-->
+                        </div>
+                        <div class="weui-cell__ft" id="shipping_method">
+                            <if condition="$data.self_delivery eq 1 ">
+                                自提
+                                <else/>
+                                物流配送
+                            </if>
+                        </div>
+                    </div>
+                </div>
+                <if condition="$data.self_delivery neq 1 ">
+                    <div class="weui-cells" id="address">
+                        <div class="weui-cell weui-cell_access">
+                            <div class="weui-cell__bd">
+                                <span style="vertical-align: middle">收货地址</span>
+                                <!--<span class="weui-badge" style="margin-left: 5px;"></span>-->
+                            </div>
+                            <!--<div class="weui-cell__ft">北京市海淀区西二旗领袖新硅谷D区39栋101室</div>-->
+                        </div>
+                        <volist name="address" id="a">
+                            <div class="weui-cell address" data="{$a.id}">
+                                <div class="weui-cell__bd">
+                        <span class="current_address{$a.id}" style="vertical-align: middle">
+                            <if condition="$a.is_default eq 1">
+                                <i class="weui-icon-success"></i>
+                            </if>
+                        </span>
+                                    <!--<span class="weui-badge" style="margin-left: 5px;">8</span>-->
+                                </div>
+                                <div class="weui-cell__ft">{$a.address}&nbsp;</div>
+                            </div>
+
+                        </volist>
+                        <div class="page__bd page__bd_spacing">
+                            <a href="__MODULE__/Address/add" class="weui-btn weui-btn_primary">新增收货地址</a>
+                        </div>
+                    </div>
+                </if>
+                <div class="weui-cells">
+                    <div class="weui-cell ">
+                        <div class="weui-cell__bd">
+                            <span style="vertical-align: middle">单价</span>
+                            <!--<span class="weui-badge" style="margin-left: 5px;"></span>-->
+                        </div>
+                        <div class="weui-cell__ft">{$data.integral}&nbsp;积分</div>
+                    </div>
+                    <div class="weui-cell ">
+                        <div class="weui-cell__bd">
+                            <span style="vertical-align: middle">数量</span>
+                            <!--<span class="weui-badge" style="margin-left: 5px;">8</span>-->
+                        </div>
+                        <div class="weui-cell__ft">{$count}&nbsp;&nbsp;件</div>
+                    </div>
+
+                    <div class="weui-cell ">
+                        <div class="weui-cell__bd">
+                            <span style="vertical-align: middle">总额</span>
+                            <!--<span class="weui-badge" style="margin-left: 5px;">New</span>-->
+                        </div>
+                        <div class="weui-cell__ft">
+                            <php>echo $data['integral']*$count;</php>
+                            积分
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <div id="cart1" class="cart-concern-btm-fixed five-column">
+                    <div class="concern-cart">
+                        <!--Jimi客服(hasJimi&&notOnline)-->
+                        <a class="dong-dong-icn J_ping" report-eventid="MProductdetail_DongDongService"
+                           report-pageparam="1422728" report-eventlevel="5" id="imBottom"
+                           href="#">
+                            <em class="btm-act-icn"></em>
+							<span class="focus-info">
+
+															</span>
+                        </a>
+                        <a class="love-heart-icn J_ping" report-eventid="MProductdetail_AddtoFollowed"
+                           report-eventparam="1422728" report-pageparam="1422728" report-eventlevel="5">
+                            <em class="btm-act-icn focus-out" id="attentionFocus"></em>
+                            <i class="focus-scale"></i>
+                            <span class="focus-info">  </span>
+                        </a>
+                        <a class="cart-car-icn">
+                            <em class="btm-act-icn" id="shoppingCart">
+                                <i class="order-numbers" id="carNum"></i>
+                            </em>
+                            <span class="focus-info"></span>
+                        </a>
+                    </div>
+                    <div class="action-list">
+                        <a class="yellow-color" href="__CONTROLLER__/details/id/{$data['id']}">
+                            返回
+                        </a>
+                        <a class="red-color " id="order">
+                            提交订单
+                        </a>
+                        <a class="yellow-color J_ping" id="looksimilar"
+                           href="&#9;//home.m.jd.com/myjd/similar/list.action?skuId=1422728" style="display:none"
+                           report-eventid="MProductdetail_Similar" report-eventparam="1422728"
+                           report-eventlevel="5">查看相似</a>
+                        <a class="red-color J_ping" id="arrivalInform" style="display:none"
+                           report-eventid="MProductdetail_ArrivalNotice" report-eventparam="1422728"
+                           report-eventlevel="5">到货通知</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" name="id" value="{$data.id}">
+    <if condition="$data.self_delivery eq 1 ">
+        <input type="hidden" name="shipping_method" value="1">
+        <else/>
+        <input type="hidden" name="shipping_method" value="2">
+    </if>
+    <input type="hidden" name="address_id" value="{$default_address_id}">
+
+    <div class="weui-skin_android" id="androidActionsheet" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-actionsheet">
+            <div class="weui-actionsheet__menu">
+                <div class="weui-actionsheet__cell" data-value="1">自提</div>
+                <if condition="$data.self_delivery eq 0 ">
+                    <div class="weui-actionsheet__cell" data-value="2">物流配送</div>
+                </if>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="footer"></block>
+<block name="js">
+    <script type="text/javascript" src="__PUBLIC__/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/weui.min.js"></script>
+    <script type="text/javascript">
+
+        // android
+        $(function () {
+
+            var ordered = false;
+            $('#order').click(function () {
+                if (ordered) {
+                    return;
+                }
+                ordered = true;
+                var shipping_method = $('input[name=shipping_method]').val();
+                if (undefined == shipping_method || shipping_method < 1) {
+                    alert('请选择收货方式');
+                    ordered = false;
+                    return;
+                }
+                var address_id = $('input[name=address_id]').val();
+                if (shipping_method == 2) {
+                    if (undefined == address_id || address_id < 1) {
+                        alert('请选择收货地址');
+                        ordered = false;
+                        return;
+                    }
+                }
+                var id = $('input[name=id]').val();
+
+                $.ajax({
+                    url: 'index.php?s=/Home/Order/add',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        shipping_method: shipping_method,
+                        address_id: address_id,
+                        id: id,
+                    },
+                    success: function (data) {
+                        ordered = false;
+                        if (data == 10005) {
+                            common.showTips('下单成功', 'index.php?s=/Home/Order/index');
+                            return;
+                        }
+                        if (data == 10009) {
+                            alert('您所兑换的礼品已经下架或者移除');
+                            return;
+                        }
+                        if (data == 10010) {
+                            alert('秒杀已经结束');
+                            return;
+                        }
+                        if (data == 10015) {
+                            alert('秒杀尚未开始');
+                            return;
+                        }
+
+                        if (data == 10011) {
+                            alert('库存不足');
+                            return;
+                        }
+                        if (data == 10012) {
+                            alert('会员信息错误');
+                            return;
+                        }
+
+                        if (data == 10013) {
+                            alert('积分不足');
+                            return;
+                        }
+                        if (data == 10014) {
+                            alert('收货方式错误');
+                            return;
+                        }
+                        if (data == 10016) {
+                            alert('兑换次数已用完');
+                            return;
+                        }
+                    },
+                    error: function () {
+                        ordered = false;
+                    },
+                });
+            });
+
+
+            $('.address').click(function () {
+                var address_id = $(this).attr('data');
+                $('input[name=address_id]').val(address_id);
+                $('.weui-icon-success').removeClass('weui-icon-success');
+                $('.current_address' + address_id).html('<i class=\"weui-icon-success\"></i>');
+            });
+
+            var $androidActionSheet = $('#androidActionsheet');
+            var $androidMask = $androidActionSheet.find('.weui-mask');
+            $('.weui-actionsheet__cell').click(function () {
+                var html = $(this).html();
+                $('#shipping_method').html(html);
+                var shipping_method = $(this).attr('data-value');
+                if (shipping_method == 1) {
+                    $('#address').css('display', 'none');
+                } else if (shipping_method == 2) {
+                    $('#address').css('display', 'block');
+                }
+                $('input[name=shipping_method]').val(shipping_method);
+                $androidActionSheet.fadeOut(200);
+            });
+            $("#showAndroidActionSheet").on('click', function () {
+                $androidActionSheet.fadeIn(200);
+                $androidMask.on('click', function () {
+                    $androidActionSheet.fadeOut(200);
+                });
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,172 @@
+<extend name="Common/layout"/>
+<block name="content">
+    <form method="post" action="">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong class="icon-reorder"> 礼品列表</strong></div>
+            <div class="padding border-bottom">
+                <button type="button" class="button border-yellow" onclick="window.location.href='__CONTROLLER__/add'">
+                    <span class="icon-plus-square-o"></span> 添加礼品
+                </button>
+                <!--<button type="button" class="button border-green" id="checkall"><span class="icon-check"></span>-->
+                <!--全选-->
+                <!--</button>-->
+                <!--<button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>-->
+            </div>
+
+            <empty name="data">
+                <div style="text-align: center; line-height: 50px;">
+                    <h3>没有数据</h3>
+                </div>
+                <else/>
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>排序</th>
+                        <th>图片</th>
+                        <th>名称</th>
+                        <!--<th>市场价</th>-->
+                        <th>兑换积分</th>
+                        <th>总量</th>
+                        <th>总库存</th>
+                        <th>下架</th>
+                        <th>秒杀</th>
+                        <th>秒杀时段</th>
+                        <th>秒杀积分</th>
+                        <th>秒杀总量</th>
+                        <th>秒杀库存</th>
+                        <th>仅支持自提</th>
+                        <!--<th>更新时间</th>-->
+                        <th>操作</th>
+                    </tr>
+                    <volist name="data" id="d">
+                        <tr>
+                            <td>
+                                <!--<input type="checkbox" name="id[]" value="">-->
+                                {$d.id}
+                            </td>
+                            <td>
+                                <!--<input type="text" name="sort[{$d.sort}]" value="{$d.sort}"-->
+                                       <!--style="width:50px; text-align:center; border:1px solid #ddd; padding:7px 0;">-->
+                                {$d.sort}
+                            </td>
+                            <td><img src="{$d.image}" alt="" width="60" height="60">
+                            </td>
+                            <td width="200">
+                                {$d.name}
+                            </td>
+                            <!--<td>{$d.price}</td>-->
+                            <td>{$d.integral}</td>
+                            <td>{$d.count}</td>
+                            <td>{$d.stock}</td>
+                            <td>
+                                <eq name="d.xiajia" value="1">
+                                    <lable style="color:red; display: inline-block;">已下架</lable>
+                                    <else/>
+                                    未下架
+                                </eq>
+                            </td>
+                            <td>
+                                <eq name="d.is_sec" value="1">
+                                    <lable style="color:red; display: inline-block;">可以秒杀</lable>
+                                    <else/>
+                                    不可秒杀
+                                </eq>
+                            </td>
+                            <td>
+                                {$d.sec_start|time_to_datetime}-{$d.sec_end|time_to_datetime}
+                            </td>
+                            <td>
+                                {$d.sec_integral}
+                            </td>
+                            <td>
+                                {$d.sec_count}
+                            </td>
+                            <td>
+                                {$d.sec_stock}
+                            </td>
+                            <td>
+                                <eq name="d.self_delivery" value="1">
+                                    <lable style="color:red; display: inline-block;">是</lable>
+                                    <else/>
+                                    否
+                                </eq>
+                            </td>
+                            <!--<td>-->
+                                <!--{$d.update_time|time_to_date}-->
+                            <!--</td>-->
+                            <td>
+                                <div class="button-group">
+                                    <a class="button border-main" href="__CONTROLLER__/add/id/{$d.id}">
+                                        <span class="icon-edit"></span> 修改</a>
+                                    <!--<a class="button border-red" href="javascript:void(0)"-->
+                                    <!--onclick="return del(1,1,1)">-->
+                                    <!--<span class="icon-trash-o"></span> 删除</a>-->
+                                </div>
+                            </td>
+                        </tr>
+                    </volist>
+                    <!--<tr>-->
+                        <!--<td style="text-align:left; padding:19px 0;padding-left:20px;">-->
+                            <!--<input type="checkbox" id="checkall">-->
+                            <!--全选-->
+                        <!--</td>-->
+                        <!--<td colspan="15" style="text-align:left;padding-left:0px;">-->
+                            <!--<a href="javascript:void(0)" style="padding:5px 15px; margin:0 10px;"-->
+                               <!--class="button border-blue icon-edit" onclick="sorts()"> 排序</a>-->
+                            <!--<a href="javascript:void(0)" class="button border-red icon-trash-o"-->
+                               <!--style="padding:5px 15px;"-->
+                               <!--onclick="DelSelect()"> 删除</a>-->
+
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <tr>
+                        <td colspan="15">
+                            <div class="pagelist">
+                                {$page}
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </empty>
+
+        </div>
+    </form>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        function del(id) {
+            if (confirm("您确定要删除吗?")) {
+            }
+        }
+
+        $("#checkall").click(function () {
+            $("input[name='id[]']").each(function () {
+                if (this.checked) {
+                    this.checked = false;
+                }
+                else {
+                    this.checked = true;
+                }
+            });
+        })
+
+        function DelSelect() {
+            var Checkbox = false;
+            $("input[name='id[]']").each(function () {
+                if (this.checked == true) {
+                    Checkbox = true;
+                }
+            });
+            if (Checkbox) {
+                var t = confirm("您确认要删除选中的内容吗？");
+                if (t == false) return false;
+            }
+            else {
+                alert("请选择您要删除的内容!");
+                return false;
+            }
+        }
+
+    </script>
+</block>

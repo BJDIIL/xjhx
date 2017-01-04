@@ -1,0 +1,115 @@
+<extend name="Common/layout"/>
+<block name="content">
+    <form method="post" action="">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong class="icon-reorder"> 文章列表</strong></div>
+            <div class="padding border-bottom">
+                <button type="button" class="button border-yellow" onclick="window.location.href='__CONTROLLER__/add'">
+                    <span class="icon-plus-square-o"></span> 添加文章
+                </button>
+            </div>
+            <!--<div class="padding border-bottom">-->
+            <!--<ul class="search">-->
+            <!--<li>-->
+            <!--<button type="button" class="button border-green" id="checkall"><span class="icon-check"></span>-->
+            <!--全选-->
+            <!--</button>-->
+            <!--<button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <empty name="data">
+                <div style="text-align: center; line-height: 50px;">
+                    <h3>没有数据</h3>
+                </div>
+                <else/>
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>标题</th>
+                        <th>阅读次数</th>
+                        <th>转发次数</th>
+                        <th>可以转发</th>
+                        <th>发布时间</th>
+                        <th>操作</th>
+                    </tr>
+                    <volist name="data" id="d">
+                        <tr>
+                            <td>
+                                {$d.id}
+                            </td>
+                            <td>{$d.title}</td>
+                            <td>{$d.reading}</td>
+                            <td>{$d.forward}</td>
+                            <td>
+                                <eq name="d.can_forward" value="1">
+                                    <lable style="color:red; display: inline-block;">是</lable>
+                                    <else/>
+                                    否
+                                </eq>
+                            </td>
+                            <td>{$d.create_time}</td>
+                            <td>
+                                <div class="button-group">
+                                    <!--<eq name="d.can_forward" value="0">-->
+                                        <!--<a class="button border-main" href="javascript:void(0)"-->
+                                           <!--onclick="return can_forward('{$d.id}');">-->
+                                            <!--<span class="icon-edit"></span> 可以转发-->
+                                        <!--</a>-->
+                                        <!--<else/>-->
+                                        <!--<a></a>-->
+                                    <!--</eq>-->
+                                    <a class="button border-main" href="__CONTROLLER__/add/id/{$d.id}">
+                                        <span class="icon-edit"></span> 编辑
+                                    </a>
+
+                                    <eq name="d.status" value="0">
+                                        <a class="button border-red" href="javascript:void(0)"
+                                           onclick="return del('{$d.id}')">
+                                            <span class="icon-trash-o"></span> 删除
+                                        </a>
+                                    </eq>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </volist>
+                    <tr>
+                        <td colspan="9">
+                            <div class="pagelist">
+                                {$page}
+                                <!--<a href="">上一页</a> <span class="current">1</span><a href="">2</a><a-->
+                                <!--href="">3</a><a href="">下一页</a><a href="">尾页</a>-->
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </empty>
+
+        </div>
+    </form>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        function del(id) {
+            if (confirm("您确定要删除吗?")) {
+                $.ajax({
+                    url: 'index.php?s=/Admin/Article/del',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {id: id},
+                    success: function (data) {
+                        if (data == 10005) {
+                            alert("删除成功！");
+                            window.location.href = 'index.php?s=/Admin/Article/index';
+                        } else {
+                            alert("操作失败");
+                        }
+                    },
+                    error: function () {
+                    },
+                });
+            }
+        }
+    </script>
+</block>

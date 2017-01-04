@@ -1,0 +1,38 @@
+<extend name="Common/layout"/>
+<block name="title"><title>我的积分</title></block>
+<block name="css">
+    <link rel="stylesheet" href="#">
+</block>
+<block name="content">
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>可用 {$profile.remain_integral}积分</p>
+            </div>
+            <div class="weui-cell__ft" style="color:black;">
+                <p>消费 {$profile.exchange_integral}积分</p>
+            </div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <volist name="integral_detail" id="detail">
+
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>{$detail.description}</p>
+                </div>
+                <div class="weui-cell__ft" style="color:black;">
+                    <p >
+                        {$detail.category|category_to_plus_or_minus}
+                        {$detail.integral}分</p>
+
+                    <p style="font-size: 10px;">{$detail.create_time|time_to_datetime}</p>
+                </div>
+            </div>
+        </volist>
+    </div>
+</block>
+<block name="footer"></block>
+<block name="js">
+
+</block>

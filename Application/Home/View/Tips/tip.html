@@ -1,0 +1,31 @@
+<extend name="Common/layout"/>
+<block name="title"><title>提示</title></block>
+<block name="css">
+    <link rel="stylesheet" href="#">
+</block>
+<block name="content">
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="{$class_name} weui-icon_msg"></i></div>
+        <div class="weui-msg__text-area">
+            <h2 class="weui-msg__title">{$msg__title}</h2>
+
+            <p class="weui-msg__desc">{$msg__desc}</p>
+        </div>
+        <div class="weui-msg__opr-area">
+            <p class="weui-btn-area">
+                <a href="{$btn_primary_url}" class="weui-btn weui-btn_primary">{$btn_primary}</a>
+                <if condition="$btn_default neq null">
+                    <a href="{$btn_default_url}" class="weui-btn weui-btn_default">{$btn_default}</a>
+                    <else/>
+                    <a href="javascript:history.back();" class="weui-btn weui-btn_default">返回</a>
+
+                </if>
+
+            </p>
+        </div>
+
+    </div>
+</block>
+<block name="js">
+    <script type="text/javascript" src="#"></script>
+</block>

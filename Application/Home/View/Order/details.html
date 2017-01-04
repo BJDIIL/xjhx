@@ -1,0 +1,196 @@
+<extend name="Common/layout"/>
+<block name="title"><title>订单详情</title></block>
+<block name="css">
+    <link rel="stylesheet" href="__PUBLIC__/css/base2016.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/itemmain.css">
+
+</block>
+<block name="content">
+    <header>
+        <div class="m_common_new_top">
+            <!-- 新版商详头部开始 -->
+            <div id="m_common_header">
+                <header class="jd-header">
+                    <div class="jd-header-new-bar">
+                        <div id="m_common_header_goback" onclick="javascript:history.back();"
+                             class="jd-header-icon-back">
+                            <span></span>
+                        </div>
+                        <!-- <div class="jd-header-title">商品详情</div> -->
+                        <ul class="jd-header-title" id="header-tabs">
+                            <li class="header-tab-item J_ping" report-pageparam="1422728"
+                                report-eventid="MProductdetail_ProductTab" report-eventlevel="5">
+                                <p class="header-tab-title   header-tab-selected" style="width:60px;" id="detailView">
+                                    订单详情</p>
+                            </li>
+                        </ul>
+                        <div class="header-bar-border"></div>
+                    </div>
+                </header>
+            </div>
+            <!-- 新版商详头部结束 -->
+        </div>
+    </header>
+    <div id="mainLayout">
+        <input type="hidden" name="id" value="{$data.id}">
+
+        <div id="mainStay" class="new-wt">
+            <div class="miblebox" id="goods-img-box">
+                <br>
+                <br>
+
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                            <img src="{$data.image}" style="width: 70px;display: block">
+                            <!--<span class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</span>-->
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p>{$data.name}</p>
+
+                            <p style="font-size: 13px;color: #888888;">{$data.desc}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells">
+                    <div class="weui-cell ">
+                        <div class="weui-cell__bd" id="showAndroidActionSheet">
+                            <span style="vertical-align: middle">收货方式</span>
+                            <!--<span class="weui-badge" style="margin-left: 5px;"></span>-->
+                        </div>
+                        <div class="weui-cell__ft" id="shipping_method">
+                            {$data.shipping_method}
+                        </div>
+                    </div>
+                    <if condition="$data.shipping_method  neq '自提'">
+                        <div class="weui-cell ">
+                            <div class="weui-cell__bd">
+                                <span style="vertical-align: middle">收货地址</span>
+                                <!--<span class="weui-badge" style="margin-left: 5px;"></span>-->
+                            </div>
+                            <!--<div class="weui-cell__ft">北京市海淀区西二旗领袖新硅谷D区39栋101室</div>-->
+                        </div>
+
+                        <div class="weui-cell address">
+                            <div class="weui-cell__bd">
+                        <span class="current_address" style="vertical-align: middle">
+                        </span>
+                            </div>
+                            <div class="weui-cell__ft">{$data.address}&nbsp;</div>
+                        </div>
+                    </if>
+                </div>
+
+                <div class="weui-cells">
+                    <div class="weui-cell ">
+                        <div class="weui-cell__bd">
+                            <span style="vertical-align: middle">单价</span>
+                            <!--<span class="weui-badge" style="margin-left: 5px;"></span>-->
+                        </div>
+                        <div class="weui-cell__ft">{$data.integral}积分</div>
+                    </div>
+                    <div class="weui-cell ">
+                        <div class="weui-cell__bd">
+                            <span style="vertical-align: middle">数量</span>
+                            <!--<span class="weui-badge" style="margin-left: 5px;">8</span>-->
+                        </div>
+                        <div class="weui-cell__ft">{$data.count}件礼品</div>
+                    </div>
+
+                    <div class="weui-cell ">
+                        <div class="weui-cell__bd">
+                            <span style="vertical-align: middle">总额</span>
+                            <!--<span class="weui-badge" style="margin-left: 5px;">New</span>-->
+                        </div>
+                        <div class="weui-cell__ft">
+                            {$data.total}
+                            积分
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <span style="vertical-align: middle">订单状态</span>
+                            <!--<span class="weui-badge" style="margin-left: 5px;">New</span>-->
+                        </div>
+                        <div class="weui-cell__ft">
+                            <if condition="$data.status eq 0">
+                                等待商家发货
+                            </if>
+                            <if condition="$data.status eq 1">
+                                商家已发货
+                            </if>
+                            <if condition="$data.status eq 2">
+                                配送中
+                            </if>
+                            <if condition="$data.status eq 3">
+                                已完成
+                            </if>
+                            <if condition="$data.status eq 4">
+                                已取消
+                            </if>
+                        </div>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <if condition="$data.status eq 0">
+                            <!--<div class="weui-btn-area">-->
+                            <!--<a class="weui-btn weui-btn_primary" >取消订单</a>-->
+                            <!--</div>-->
+                        </if>
+                        <if condition="$data.status eq 1">
+                            <div class="weui-btn-area">
+                                <a class="weui-btn weui-btn_primary" href="javascript:" id="reach">确认收到</a>
+                            </div>
+                        </if>
+                        <!--<if condition="$data.status eq 2">-->
+                        <!--配送中-->
+                        <!--</if>-->
+                        <!--<if condition="$data.status eq 3">-->
+                        <!--完成-->
+                        <!--</if>-->
+                        <!--<if condition="$data.status eq 4">-->
+                        <!--已取消-->
+                        <!--</if>-->
+                    </div>
+
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="footer"></block>
+<block name="js">
+    <script type="text/javascript" src="__PUBLIC__/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/weui.min.js"></script>
+    <script type="text/javascript" charset="UTF-8">
+        $(function () {
+            $('#reach').click(function () {
+                if (confirm("您确认收到礼品了吗？")) {
+                    var id = $('input[name=id]').val();
+                    $.ajax({
+                        url: 'index.php?s=/Home/Order/confirm',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            id: id,
+                        },
+                        success: function (data) {
+                            if (data == 10005) {
+                                common.showTips('确认收到礼品', 'index.php?s=/Home/Order/index');
+                                return;
+                            }
+                            alert('失败');
+                        },
+                        error: function () {
+                        },
+                    });
+                }
+            });
+        });
+    </script>
+</block>

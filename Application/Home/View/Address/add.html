@@ -1,0 +1,75 @@
+<extend name="Common/layout"/>
+<block name="title"><title>地址</title></block>
+<block name="css">
+    <link rel="stylesheet" href="__PUBLIC__/third/jquery-weui/lib/weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/third/jquery-weui/css/jquery-weui.min.css">
+</block>
+<block name="content">
+
+    <input type="hidden" name="id" value="{$data.id}">
+    <input type="hidden" name="is_default" value="{$data.is_default}">
+
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">收货人</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" name="name" type="text" placeholder="请填写收货人姓名" value="{$data.name}"/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" name="mobile" type="tel" placeholder="请输入手机号" value="{$data.mobile}"/>
+            </div>
+        </div>
+        <div class="weui_cell ">
+            <div class="weui_cell_hd">
+                <label class="weui_label">所在地区</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" id="city-picker" type="text" value="{$data.address}"
+                       data-codes="{$data.data_codes}" readonly="">
+            </div>
+        </div>
+    </div>
+    <div class="weui-cells__title">详细地址</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <textarea class="weui-textarea" name="details" placeholder="请输入详细地址" rows="3">{$data.details}</textarea>
+                <!--<div class="weui-textarea-counter"><span>0</span>/200</div>-->
+            </div>
+        </div>
+    </div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">默认地址</div>
+            <div class="weui-cell__ft">
+                <input class="weui-switch" id="is_default"  type="checkbox" onclick="is_default();"
+                <php>if($data['is_default']==1) echo "checked='checked'";</php>
+                >
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+    <div class="page__bd page__bd_spacing">
+        <!--weui-btn_disabled weui-btn_default-->
+        <a href="javascript:;" id="save" class="weui-btn weui-btn_primary  ">保存</a>
+    </div>
+
+</block>
+<block name="js">
+    <script src="__PUBLIC__/third/jquery-weui/js/jquery-1.10.0.min.js"></script>
+    <script src="__PUBLIC__/third/jquery-weui/js/jquery-weui.min.js"></script>
+    <script src="__PUBLIC__/third/jquery-weui/js/city-picker.js"></script>
+    <script>
+        $("#city-picker").cityPicker({
+            title: "请选择收货地址"
+        });
+    </script>
+
+    <script type="text/javascript" src="__PUBLIC__/js/address.js"></script>
+</block>

@@ -1,0 +1,55 @@
+<extend name="Common/layout"/>
+<block name="title"><title>注册</title></block>
+<block name="css">
+    <link rel="stylesheet" href="#">
+</block>
+<block name="content">
+
+    <div class="page__hd">
+        <h1 class="page__title" style="text-align: center;">香江·红星家具建材博览中心</h1>
+
+        <h2 class="page__title" style="text-align: center;">{$msg}</h2>
+    </div>
+    <div class="weui-cells weui-cells_form">
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" name="name" type="text" placeholder="请输入姓名" value=""/>
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" name="mobile" type="tel" placeholder="请输入手机号" value=""/>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_vcode" style="height: 44px;">
+            <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" value="" name="code" placeholder="请输入验证码">
+            </div>
+
+        </div>
+        <div class="weui-cell weui-cell_vcode" style="margin-left: 80px;">
+
+            <div class="weui-cell__bd">
+                <img class="weui-vcode-img" onclick="this.src=this.src+'/v/'+Math.random()"
+                     src="__MODULE__/Account/verify">
+            </div>
+        </div>
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_warn" href="javascript:" id="showTooltips">注册</a>
+        </div>
+    </div>
+    <!--入会规则-->
+    <include file="Common/rules"/>
+
+</block>
+
+<block name="js">
+    <script type="text/javascript"
+            src="__PUBLIC__/js/register.js<php> if(C('JS_CSS_CACHE_ENABLE')) echo '?v='.rand(0,10000);</php>"></script>
+
+</block>

@@ -1,0 +1,25 @@
+<extend name="Common/layout_tabbar"/>
+<block name="title"><title>签到记录</title></block>
+<block name="css">
+    <link rel="stylesheet" href="#">
+</block>
+<block name="content">
+    <div class="weui-cells">
+        <volist name="history" id="his">
+
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>{$his.signin_time|time_to_date}</p>
+
+                    <p style="font-size: 10px;">签到送积分</p>
+                </div>
+                <div class="weui-cell__ft">+{$his.integral}分</div>
+            </div>
+
+        </volist>
+    </div>
+</block>
+<block name="js">
+    <!--<script type="text/javascript"-->
+    <!--src="__PUBLIC__/js/my_info.js<php> if(C('JS_CSS_CACHE_ENABLE')) echo '?v='.rand(0,10000);</php>"></script>-->
+</block>

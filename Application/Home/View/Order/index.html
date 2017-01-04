@@ -1,0 +1,38 @@
+<extend name="Common/layout_tabbar"/>
+<block name="title"><title>我的订单</title></block>
+<block name="css">
+    <link rel="stylesheet" href="#">
+</block>
+<block name="content">
+
+    <volist name="data" id="d">
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_access" data="__CONTROLLER__/details/id/{$d.id}">
+                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <img src="{$d.image}" style="width: 50px;display: block">
+                </div>
+                <div class="weui-cell__bd">
+                    <p>{$d.name}</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </div>
+            <div class="weui-cell " data="__CONTROLLER__/details/id/{$d.id}">
+                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                </div>
+                <div class="weui-cell__bd">
+                    <p>共{$d.count}件礼品，消费{$d.total}积分</p>
+                </div>
+            </div>
+        </div>
+
+    </volist>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $(function () {
+            $('.weui-cell').click(function () {
+                window.location.href = $(this).attr('data');
+            });
+        });
+    </script>
+</block>

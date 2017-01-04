@@ -1,0 +1,104 @@
+﻿<extend name="Common/layout"/>
+<block name="content">
+    <form method="post" action="">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong class="icon-reorder"> 会员列表</strong></div>
+            <!--<div class="padding border-bottom">-->
+            <!--<ul class="search">-->
+            <!--<li>-->
+            <!--<button type="button" class="button border-green" id="checkall"><span class="icon-check"></span>-->
+            <!--全选-->
+            <!--</button>-->
+            <!--<button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <empty name="profile">
+                <div style="text-align: center; line-height: 50px;">
+                    <h3>没有数据</h3>
+                </div>
+                <else/>
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th width="120">ID</th>
+                        <th>姓名</th>
+                        <th>电话</th>
+                        <th>邮箱</th>
+                        <th>注册时间</th>
+                        <th width="25%">总积分</th>
+                        <th width="120">已兑换积分</th>
+                        <th width="120">可用积分</th>
+                        <th>操作</th>
+                    </tr>
+                    <volist name="profile" id="pro">
+                        <tr>
+                            <td>
+                                {$pro.id}
+                            </td>
+                            <td>{$pro.name}</td>
+                            <td>{$pro.mobile}</td>
+                            <td>{$pro.email}</td>
+                            <td>{$pro.create_time|time_to_datetime}</td>
+                            <td>{$pro.total_integral}</td>
+                            <td>{$pro.exchange_integral}</td>
+                            <td>{$pro.remain_integral}</td>
+                            <td>
+                                <!--<div class="button-group"><a class="button border-red" href="javascript:void(0)"-->
+                                <!--onclick="return del(1)"><span class="icon-trash-o"></span>-->
+                                <!--删除</a>-->
+                                <!--</div>-->
+                            </td>
+                        </tr>
+                    </volist>
+                    <tr>
+                        <td colspan="9">
+                            <div class="pagelist">
+                                {$page}
+                                <!--<a href="">上一页</a> <span class="current">1</span><a href="">2</a><a-->
+                                <!--href="">3</a><a href="">下一页</a><a href="">尾页</a>-->
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </empty>
+
+        </div>
+    </form>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        function del(id) {
+            if (confirm("您确定要删除吗?")) {
+            }
+        }
+
+        $("#checkall").click(function () {
+            $("input[name='id[]']").each(function () {
+                if (this.checked) {
+                    this.checked = false;
+                }
+                else {
+                    this.checked = true;
+                }
+            });
+        })
+
+        function DelSelect() {
+            var Checkbox = false;
+            $("input[name='id[]']").each(function () {
+                if (this.checked == true) {
+                    Checkbox = true;
+                }
+            });
+            if (Checkbox) {
+                var t = confirm("您确认要删除选中的内容吗？");
+                if (t == false) return false;
+            }
+            else {
+                alert("请选择您要删除的内容!");
+                return false;
+            }
+        }
+
+    </script>
+</block>

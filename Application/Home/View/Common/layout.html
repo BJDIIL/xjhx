@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <block name="title">香江·红星美凯龙</block>
+    <link rel="stylesheet" href="__PUBLIC__/css/weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/example.css">
+    <block name="css"></block>
+</head>
+<body ontouchstart="">
+<div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+<div class="container" id="container">
+    <div class="page js_show">
+        <block name="content">xiaobudian</block>
+
+        <block name="footer">
+            <!--<div class="weui-footer weui-footer_fixed-bottom">-->
+                <!--<p class="weui-footer__links">-->
+                    <!--<a href="javascript:home();" class="weui-footer__link">香江·红星美凯龙</a>-->
+                <!--</p>-->
+
+                <!--<p class="weui-footer__text">Copyright © 2015-{:date('Y')}</p>-->
+            <!--</div>-->
+        </block>
+    </div>
+    <div id="toast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+
+            <p class="weui-toast__content">已完成</p>
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/js/jquery-2.2.2.min.js"></script>
+<script src="__PUBLIC__/js/zepto.min.js"></script>
+<script src="__PUBLIC__/js/common.js<php> if(C('JS_CSS_CACHE_ENABLE')) echo '?v='.rand(0,10000);</php>"></script>
+<block name="js"></block>
+</body>
+</html>

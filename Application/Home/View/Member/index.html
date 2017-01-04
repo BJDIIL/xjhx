@@ -1,0 +1,111 @@
+﻿<extend name="Common/layout"/>
+<block name="title"><title>个人中心</title></block>
+<block name="css">
+    <link rel="stylesheet" href="#">
+</block>
+<block name="content">
+    <div class="weui-cells">
+        <div class="weui-cell" data="__MODULE__/Member/my_info">
+            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <img src="__PUBLIC__/img/headimg.jpg" style="width: 50px;display: block">
+                <!--<span class="weui-badge"-->
+                <!--style="position: absolute;top: -.4em;right: -.4em;">8</span>-->
+            </div>
+            <div class="weui-cell__bd" >
+                <p>{$profile.name}</p>
+
+                <p style="font-size: 13px;color: #888888;">{$profile.mobile}</p>
+            </div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <div class="weui-cell weui-cell_access" data="__MODULE__/Member/integral">
+            <div class="weui-cell__bd" >
+                <span style="vertical-align: middle">我的积分</span>
+                <!--<span class="weui-badge" style="margin-left: 5px;">8</span>-->
+            </div>
+            <div class="weui-cell__ft">{$profile.remain_integral}&nbsp;</div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <div class="weui-cell weui-cell_access" data="__MODULE__/Signin/index">
+
+            <div class="weui-cell__bd" >
+
+                <span style="vertical-align: middle">每日签到</span>
+                <!--<span class="weui-badge" style="margin-left: 5px;">8</span>-->
+            </div>
+            <!--<div class="weui-cell__ft"></div>-->
+
+            <div class="weui-cell__ft"></div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <div class="weui-cell weui-cell_access" data="__MODULE__/Member/my_info">
+            <div class="weui-cell__bd" >
+                <span style="vertical-align: middle">个人信息</span>
+                <!--<span class="weui-badge" style="margin-left: 5px;">New</span>-->
+            </div>
+            <div class="weui-cell__ft"></div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <div class="weui-cell weui-cell_access" data="__MODULE__/Forward/index">
+            <div class="weui-cell__bd">
+                <span style="vertical-align: middle">转发送积分</span>
+                <!--<span class="weui-badge" style="margin-left: 5px;">New</span>-->
+            </div>
+            <div class="weui-cell__ft"></div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <div class="weui-cell weui-cell_access" data="__MODULE__/IntegralMall/index">
+            <div class="weui-cell__bd" >
+                <span style="vertical-align: middle">积分商城</span>
+                <!--<span class="weui-badge" style="margin-left: 5px;">New</span>-->
+            </div>
+            <div class="weui-cell__ft"></div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <div class="weui-cell weui-cell_access" data="__MODULE__/Order/index">
+            <div class="weui-cell__bd" >
+                <span style="vertical-align: middle">我的订单</span>
+                <!--<span class="weui-badge" style="margin-left: 5px;">New</span>-->
+            </div>
+            <div class="weui-cell__ft"></div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <div class="weui-cell weui-cell_access" data="__MODULE__/Address/index">
+            <div class="weui-cell__bd" >
+                <span style="vertical-align: middle">收货地址</span>
+                <!--<span class="weui-badge" style="margin-left: 5px;">New</span>-->
+            </div>
+            <div class="weui-cell__ft"></div>
+        </div>
+    </div>
+    <!--<div class="weui-cells">-->
+    <!--<div class="weui-cell weui-cell_access">-->
+    <!--<div class="weui-cell__bd" data="__MODULE__/Signin/index">-->
+    <!--<span style="vertical-align: middle">卡券</span>-->
+    <!--&lt;!&ndash;<span class="weui-badge" style="margin-left: 5px;">8</span>&ndash;&gt;-->
+    <!--</div>-->
+    <!--<div class="weui-cell__ft"></div>-->
+    <!--&lt;!&ndash;<div class="weui-cell__ft">详细信息</div>&ndash;&gt;-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="weui-cells">-->
+    <!--<div class="weui-cell weui-cell_access">-->
+    <!--<div class="weui-cell__bd" data="__MODULE__/Signin/index">-->
+    <!--<span style="vertical-align: middle">账单</span>-->
+    <!--&lt;!&ndash;<span class="weui-badge" style="margin-left: 5px;">New</span>&ndash;&gt;-->
+    <!--</div>-->
+    <!--<div class="weui-cell__ft"></div>-->
+    <!--</div>-->
+    <!--</div>-->
+</block>
+<block name="js">
+    <script type="text/javascript"
+            src="__PUBLIC__/js/member.js<php> if(C('JS_CSS_CACHE_ENABLE')) echo '?v='.rand(0,10000);</php>"></script>
+</block>

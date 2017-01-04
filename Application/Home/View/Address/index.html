@@ -1,0 +1,46 @@
+<extend name="Common/layout_tabbar"/>
+<block name="title"><title>我的地址</title></block>
+<block name="css">
+    <link rel="stylesheet" href="#">
+</block>
+<block name="content">
+
+    <div class="weui-cells">
+        <empty name="data">
+            <div style="text-align: center; line-height: 50px;">
+                <h3>没有数据</h3>
+            </div>
+            <else/>
+            <volist name="data" id="d">
+                <div class="weui-cell weui-cell_access" data="__CONTROLLER__/add/id/{$d.id}">
+                    <div class="weui-cell__bd">
+                        <span style="vertical-align: middle">
+                            <if condition="$d.is_default eq 1">
+                                <i class="weui-icon-success"></i>
+                            </if>
+                        </span>
+                        <!--<span class="weui-badge" style="margin-left: 5px;">8</span>-->
+                    </div>
+                    <div class="weui-cell__ft">{$d.address}&nbsp;</div>
+                </div>
+
+            </volist>
+        </empty>
+
+    </div>
+    <br>
+
+    <div class="page__bd page__bd_spacing">
+        <a href="__CONTROLLER__/add" class="weui-btn weui-btn_primary">添加收货地址</a>
+    </div>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $(function () {
+            $('.weui-cell_access').click(function () {
+                window.location.href = $(this).attr('data');
+            });
+        });
+
+    </script>
+</block>

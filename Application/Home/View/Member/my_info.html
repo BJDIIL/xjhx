@@ -1,0 +1,36 @@
+<extend name="Common/layout"/>
+<block name="title"><title>个人信息</title></block>
+<block name="css">
+    <link rel="stylesheet" href="#">
+</block>
+<block name="content">
+
+    <div class="weui-cells">
+        <div class="weui-cell weui-cell_access">
+            <div class="weui-cell__bd" data="__MODULE__/Member/integral">
+                <span style="vertical-align: middle">手机</span>
+                <!--<span class="weui-badge" style="margin-left: 5px;">8</span>-->
+            </div>
+            <div class="weui-cell__ft">{$profile.mobile}&nbsp;</div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" name="name" type="text" placeholder="请输入姓名" value="{$profile.name}"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-btn-area">
+        <a class="weui-btn weui-btn_primary" href="javascript:" id="save">保存</a>
+    </div>
+    <div class="weui-btn-area">
+        <a class="weui-btn weui-btn_default" href="javascript:history.back();">返回</a>
+    </div>
+</block>
+<block name="js">
+    <script type="text/javascript"
+            src="__PUBLIC__/js/my_info.js<php> if(C('JS_CSS_CACHE_ENABLE')) echo '?v='.rand(0,10000);</php>"></script>
+</block>

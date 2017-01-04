@@ -1,0 +1,167 @@
+<extend name="Common/layout"/>
+<block name="content">
+    <form method="post" action="">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong class="icon-reorder"> 订单列表</strong></div>
+            <div class="padding border-bottom">
+                <!--<button type="button" class="button border-yellow" onclick="window.location.href='__CONTROLLER__/add'">-->
+                <!--<span class="icon-plus-square-o"></span> 添加内容-->
+                <!--</button>-->
+                <!--<button type="button" class="button border-green" id="checkall"><span class="icon-check"></span>-->
+                <!--全选-->
+                <!--</button>-->
+                <!--<button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>-->
+            </div>
+
+            <empty name="data">
+                <div style="text-align: center; line-height: 50px;">
+                    <h3>没有数据</h3>
+                </div>
+                <else/>
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>图片</th>
+                        <th>名称</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>积分</th>
+                        <th>秒杀</th>
+                        <th>配送方式</th>
+                        <th>收货地址</th>
+                        <th>收货人</th>
+                        <th>手机号</th>
+                        <th>兑换时间</th>
+                        <th>订单状态</th>
+                        <th>操作</th>
+                    </tr>
+                    <volist name="data" id="d">
+                        <tr>
+                            <td>
+                                {$d.create_time}
+                            </td>
+                            <td><img src="{$d.image}" alt="" width="60" height="60">
+                            </td>
+                            <td style="max-width: 200px;">
+                                {$d.name}
+                            </td>
+                            <td>{$d.integral}</td>
+                            <td>{$d.count}</td>
+                            <td>{$d.total}</td>
+                            <td>
+                                <eq name="d.is_sec" value="1">
+                                    <lable style="color:red; display: inline-block;">是</lable>
+                                    <else/>
+                                    否
+                                </eq>
+                            </td>
+                            <td>
+                                <!--<eq name="d.shipping_method" value="1">-->
+                                    <!--<lable style="color:red; display: inline-block;">自提</lable>-->
+                                    <!--<else/>-->
+                                    <!--物流配送-->
+                                <!--</eq>-->
+                                {$d.shipping_method}
+                            </td>
+                            <td>{$d.address}</td>
+                            <td>{$d.username}</td>
+                            <td>{$d.mobile}</td>
+                            <td>
+                                {$d.create_time|time_to_datetime}
+                            </td>
+                            <td>
+                                <if condition="$d.status eq 0">
+                                    等待商家发货
+                                </if>
+                                <if condition="$d.status eq 1">
+                                    商家已发货
+                                </if>
+                                <if condition="$d.status eq 2">
+                                    配送中
+                                </if>
+                                <if condition="$d.status eq 3">
+                                    完成
+                                </if>
+                                <if condition="$d.status eq 4">
+                                    已取消
+                                </if>
+                            </td>
+
+                            <td>
+                                <div class="button-group">
+                                    <if condition="$d.status eq 0">
+                                        <a class="button border-main" href="javascript:void(0)"
+                                           onclick="return update_send({$d.id});">
+                                            <span class="icon-edit"></span> 发货</a>
+                                        <a class="button border-red" href="javascript:void(0)"
+                                           onclick="return update_cancel({$d.id});">
+                                            <span class="icon-trash-o"></span> 取消</a>
+                                    </if>
+                                    <if condition="$d.status eq 1">
+                                        <a class="button border-main"
+                                           onclick="return update_finish({$d.id});"
+                                           href="javascript:void(0)">
+                                            <span class="icon-edit"></span> 完成</a>
+                                    </if>
+                                    <if condition="$d.status eq 2">
+                                        配送中
+                                    </if>
+                                    <if condition="$d.status eq 3">
+                                        已完成
+                                    </if>
+                                    <if condition="$d.status eq 4">
+                                        已取消
+                                    </if>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </volist>
+                    <tr>
+                        <td colspan="15">
+                            <div class="pagelist">
+                                {$page}
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </empty>
+        </div>
+    </form>
+</block>
+<block name="js">
+    <script type="text/javascript">
+
+        function update(id, status, msg) {
+            if (confirm("您确定要" + msg + "吗?")) {
+                $.ajax({
+                    url: 'index.php?s=/Admin/Order/update_status',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {id: id, status: status},
+                    success: function (data) {
+                        if (data == 10005) {
+                            alert(msg + "成功！");
+                            window.location.href = 'index.php?s=/Admin/Order/index';
+                        } else {
+                            alert("操作失败");
+                        }
+                    },
+                    error: function () {
+                    },
+                });
+            }
+        }
+
+        function update_send(id) {
+            update(id, 1, '发货');
+        }
+        function update_cancel(id) {
+            update(id, 4, '取消订单');
+        }
+        function update_finish(id) {
+            update(id, 3, '设置为已完成');
+        }
+    </script>
+</block>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title> {$data.title} - 香江红星</title>
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- apple devices fullscreen -->
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script type="text/javascript"
+            src="__PUBLIC__/js/jquery-2.2.2.min.js"></script>
+    <!--<link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--<link href="__PUBLIC__/css/common.min.css" rel="stylesheet">-->
+    <script type="text/javascript">
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        // jssdk config 对象
+        jssdkconfig = {$signPackage} || {};
+        // 是否启用调试
+        jssdkconfig.debug = false;
+        jssdkconfig.jsApiList = [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard',
+            'openAddress'
+        ];
+    </script>
+</head>
+<body style="padding-bottom: 20px;">
+<div class="container container-fill">
+    <empty name="data">
+        <h3>暂无文章分享，下次吧</h3>
+        <else/>
+        <div id="activity-detail">
+            <style type="text/css">
+                @charset "utf-8";
+                html {
+                    background: #FFF;
+                    color: #000;
+                }
+
+                body, div, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                table {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                }
+
+                fieldset, img {
+                    border: 0;
+                }
+
+                address, caption, cite, code, dfn, th, var {
+                    font-style: normal;
+                    font-weight: normal;
+                }
+
+                ol, ul {
+                    list-style: none;
+                }
+
+                caption, th {
+                    text-align: left;
+                }
+
+                h1, h2, h3, h4, h5, h6 {
+                    font-size: 100%;
+                    font-weight: normal;
+                }
+
+                q:before, q:after {
+                    content: '';
+                }
+
+                abbr, acronym {
+                    border: 0;
+                    font-variant: normal;
+                }
+
+                sup {
+                    vertical-align: text-top;
+                }
+
+                sub {
+                    vertical-align: text-bottom;
+                }
+
+                input, textarea, select {
+                    font-family: inherit;
+                    font-size: inherit;
+                    font-weight: inherit;
+                }
+
+                input, textarea, select {
+                    font-size: 100%;
+                }
+
+                legend {
+                    color: #000;
+                }
+
+                body {
+                    color: #222;
+                    font-family: Helvetica, STHeiti STXihei, Microsoft JhengHei, Microsoft YaHei, Tohoma, Arial;
+                    height: 100%;
+                    position: relative;
+                }
+
+                body > .tips {
+                    display: none;
+                    left: 50%;
+                    padding: 20px;
+                    position: fixed;
+                    text-align: center;
+                    top: 50%;
+                    width: 200px;
+                    z-index: 100;
+                }
+
+                .page {
+                    padding: 15px;
+                }
+
+                .page .page-error, .page .page-loading {
+                    line-height: 30px;
+                    position: relative;
+                    text-align: center;
+                }
+
+                #activity-detail .page-bizinfo {
+                    border-bottom: 1px dotted #CCC;
+                }
+
+                #activity-detail .page-bizinfo .header {
+                    padding: 10px 10px 10px;
+                }
+
+                #activity-detail .page-bizinfo .header #activity-name {
+                    color: #000;
+                    font-size: 20px;
+                    margin-bottom: 5px;
+                    font-weight: bold;
+                    word-break: normal;
+                    word-wrap: break-word;
+                }
+
+                #activity-detail .page-bizinfo .header #post-date {
+                    color: #8c8c8c;
+                    font-size: 11px;
+                    margin: 0;
+                }
+
+                #activity-detail .page-content {
+                    padding: 10px;
+                }
+
+                #activity-detail .page-content .media {
+                    margin-bottom: 18px;
+                }
+
+                #activity-detail .page-content .media img {
+                    width: 100%;
+                }
+
+                #activity-detail .page-content .text {
+                    color: #3e3e3e;
+                    font-size: 1.5;
+                    line-height: 1.5;
+                    width: 100%;
+                    overflow: hidden;
+                    zoom: 1;
+                }
+
+                #activity-detail .page-content .text p {
+                    min-height: 1.5em;
+                    min-height: 1.5em;
+                    word-wrap: break-word;
+                    word-break: break-all;
+                }
+
+                #activity-list .header {
+                    font-size: 20px;
+                }
+
+                #activity-list .page-list {
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    margin: 18px 0;
+                    overflow: hidden;
+                }
+
+                #activity-list .page-list .line.btn {
+                    border-radius: 0;
+                    margin: 0;
+                    text-align: left;
+                }
+
+                #activity-list .page-list .line.btn .checkbox {
+                    height: 25px;
+                    line-height: 25px;
+                    padding-left: 35px;
+                    position: relative;
+                }
+
+                #activity-list .page-list .line.btn .checkbox .icons {
+                    background-color: #ccc;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                }
+
+                #activity-list .page-list .line.btn.off .icons {
+                    background-image: none;
+                }
+
+                #activity-list #save.btn {
+                    background-image: linear-gradient(#22dd22, #009900);
+                    background-image: -moz-linear-gradient(#22dd22, #009900);
+                    background-image: -ms-linear-gradient(#22dd22, #009900);
+                    background-image: -o-linear-gradient(#22dd22, #009900);
+                    background-image: -webkit-gradient(linear, left top, left bottom, from(#22dd22), to(#009900));
+                    background-image: -webkit-linear-gradient(#22dd22, #009900);
+                }
+
+                .vm {
+                    vertical-align: middle;
+                }
+
+                .tc {
+                    text-align: center;
+                }
+
+                .db {
+                    display: block;
+                }
+
+                .dib {
+                    display: inline-block;
+                }
+
+                .b {
+                    font-weight: 700;
+                }
+
+                .clr {
+                    clear: both;
+                }
+
+                .text img {
+                    max-width: 100%;
+                }
+
+                .page-url {
+                    padding-top: 18px;
+                }
+
+                .page-url-link {
+                    color: #607FA6;
+                    font-size: 14px;
+                    text-decoration: none;
+                    text-shadow: 0 1px #ffffff;
+                    -webkit-text-shadow: 0 1px #ffffff;
+                    -moz-text-shadow: 0 1px #ffffff;
+                }
+
+                #mbutton {
+                    padding: 15px 10px 15px 10px;
+                    overflow: hidden;
+                    border-bottom: 1px #DDD solid;
+                }
+
+                #mbutton > span {
+                    float: right;
+                    display: inline-block;
+                    background: #666;
+                    border: 1px #DDD solid;
+                    color: #FFF;
+                    height: 30px;
+                    line-height: 30px;
+                    padding: 0 10px;
+                    margin-left: 10px;
+                }
+
+                #mcover {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.7);
+                    display: none;
+                    z-index: 20000;
+                }
+
+                #mcover img {
+                    position: fixed;
+                    right: 18px;
+                    top: 5px;
+                    width: 260px;
+                    height: 180px;
+                    z-index: 20001;
+                }
+            </style>
+            <div class="page-bizinfo">
+                <div class="header">
+                    <h1 id="activity-name">{$data.title}</h1>
+                <span id="post-date">
+                    <span>{$data.create_time}</span>
+                    <span></span>
+                    <a href="https://mp.weixin.qq.com/s/-uCxWq8kU8j3BOLWWlFLMA">香江红星家具建材博览中心</a>
+                    <span>阅读:{$data.reading}次</span>
+                </span>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="text">
+                    <p>
+                        {$data.content}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </empty>
+
+    <img src="__PUBLIC__/img/default.jpg" style="height: 1px;width:1px;">
+</div>
+<style>
+    h5 {
+        color: #555;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        var server_host = '<php> echo SERVER_HOST;</php>';
+        wx.config(jssdkconfig);
+        var $_share = {
+            "desc": "香江红星欢迎你",
+            "title": "{$data.title}",
+            "imgUrl": '',
+            "link": server_host+'/index.php?s=/Home/Forward/details/id/{$data.id}'
+        };
+        if (typeof sharedata == 'undefined') {
+            sharedata = $_share;
+        } else {
+            sharedata['title'] = sharedata['title'] || $_share['title'];
+            sharedata['desc'] = sharedata['desc'] || $_share['desc'];
+            sharedata['link'] = sharedata['link'] || $_share['link'];
+            sharedata['imgUrl'] = sharedata['imgUrl'] || $_share['imgUrl'];
+        }
+        if (sharedata['imgUrl'] == '') {
+
+            var _share_img =server_host+'/Public/third' + $('body img:eq(0)').attr("src");
+            sharedata['imgUrl'] = _share_img;
+        }
+
+        wx.ready(function () {
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+            wx.onMenuShareQQ(sharedata);
+            wx.onMenuShareQZone(sharedata);
+            wx.onMenuShareWeibo(sharedata);
+        });
+        //文章点击和分享加积分
+        sharedata.success = function () {
+            var tongji_share = {$tongji_share};
+            if (tongji_share == 0)return;
+//            alert('增加分享次数');
+            var url = server_host+"/index.php?s=/Home/Forward/share/id/"+{$data.id};
+            $.post(url, function (dat) {
+            });
+        };
+
+        $('body').css("padding-bottom", 0);
+        $('body .mui-content').css("bottom", "0");
+        $('.mui-content').css('bottom', "0");
+    });
+</script>
+</body>
+</html>

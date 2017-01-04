@@ -1,0 +1,102 @@
+<extend name="Common/layout"/>
+<block name="content">
+    <form method="post" action="">
+        <div class="panel admin-panel">
+            <div class="panel-head"><strong class="icon-reorder"> 签到历史</strong></div>
+            <!--<div class="padding border-bottom">-->
+            <!--<ul class="search">-->
+            <!--<li>-->
+            <!--<button type="button" class="button border-green" id="checkall"><span class="icon-check"></span>-->
+            <!--全选-->
+            <!--</button>-->
+            <!--<button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <empty name="signin_history">
+                <div style="text-align: center; line-height: 50px;">
+                    <h3>没有数据</h3>
+                </div>
+                <else/>
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th width="120">ID</th>
+                        <th>姓名</th>
+                        <th>电话</th>
+                        <th>邮箱</th>
+                        <th>签到时间</th>
+                        <th width="25%">获赠积分</th>
+                        <th width="120">连续签到天数</th>
+                        <th>操作</th>
+                    </tr>
+                    <volist name="signin_history" id="data">
+                        <tr>
+                            <td>
+                                {$data.id}
+                            </td>
+                            <td>{$data.name}</td>
+                            <td>{$data.mobile}</td>
+                            <td>{$data.email}</td>
+                            <td>{$data.signin_time|time_to_datetime}</td>
+                            <td>{$data.integral}</td>
+                            <td>{$data.days}</td>
+                            <td>
+                                <!--<div class="button-group"><a class="button border-red" href="javascript:void(0)"-->
+                                <!--onclick="return del(1)"><span class="icon-trash-o"></span>-->
+                                <!--删除</a>-->
+                                <!--</div>-->
+                            </td>
+                        </tr>
+                    </volist>
+                    <tr>
+                        <td colspan="9">
+                            <div class="pagelist">
+                                {$page}
+                                <!--<a href="">上一页</a> <span class="current">1</span><a href="">2</a><a-->
+                                <!--href="">3</a><a href="">下一页</a><a href="">尾页</a>-->
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </empty>
+
+        </div>
+    </form>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        function del(id) {
+            if (confirm("您确定要删除吗?")) {
+            }
+        }
+
+        $("#checkall").click(function () {
+            $("input[name='id[]']").each(function () {
+                if (this.checked) {
+                    this.checked = false;
+                }
+                else {
+                    this.checked = true;
+                }
+            });
+        })
+
+        function DelSelect() {
+            var Checkbox = false;
+            $("input[name='id[]']").each(function () {
+                if (this.checked == true) {
+                    Checkbox = true;
+                }
+            });
+            if (Checkbox) {
+                var t = confirm("您确认要删除选中的内容吗？");
+                if (t == false) return false;
+            }
+            else {
+                alert("请选择您要删除的内容!");
+                return false;
+            }
+        }
+
+    </script>
+</block>

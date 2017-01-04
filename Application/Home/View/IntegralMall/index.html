@@ -1,0 +1,193 @@
+<extend name="Common/layout_tabbar"/>
+<block name="title"><title>积分商城</title></block>
+<block name="css">
+    <link rel="stylesheet" href="__PUBLIC__/css/base2013.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/header.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/newsec.kill.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/sec.kill.css">
+    <style>
+        .white-color {
+            background-color: white;
+        }
+    </style>
+</block>
+<block name="content">
+    <div class="weui-search-bar" id="searchBar">
+        <form class="weui-search-bar__form" method="POST" action="__CONTROLLER__/index">
+            <div class="weui-search-bar__box">
+                <i class="weui-icon-search"></i>
+                <input type="search" class="weui-search-bar__input" name="key" value="{$key}" id="searchInput"
+                       placeholder="搜索"
+                        >
+                <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+            </div>
+            <label class="weui-search-bar__label" id="searchText">
+                <i class="weui-icon-search"></i>
+                <span>搜索</span>
+            </label>
+        </form>
+        <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+    </div>
+    <empty name="data">
+        <div style="line-height: 100px; text-align: center;">
+            <h1>没有数据</h1>
+        </div>
+        <else/>
+        <div class="new-skill-wrap">
+            <div id="seckill-body">
+                <div class="skill-hot">
+                    <ul class="good-list bdr-b seckilling">
+                        <volist name="data" id="d">
+                            <li class="bdr-bom">
+                                <a href="__CONTROLLER__/details/id/{$d.id}">
+                                    <div class="skill-pic">
+                                        <div class="img">
+                                            <img src="{$d.image}"
+                                                 _src="">
+                                        </div>
+                                        <if condition="$d.is_sec eq 1">
+                                            <div class="tag-circle" style="background-color: #F02B2B;"></div>
+                                            <p class="tag-text-four">超级<br>秒杀</p>
+                                        </if>
+
+                                    </div>
+                                    <p class="g-title">{$d.name}</p>
+
+                                    <p class="g-price"><i class="doller"></i>
+                                        <if condition="$d.is_sec eq 1">
+                                            {$d.sec_integral}
+                                            <else/>
+                                            {$d.integral}
+                                        </if>
+                                        积分</span></p>
+
+
+                                    <div class="skill-price">
+                                        <p class="g-price-odd">
+                                            <if condition="$d.is_sec eq 1">
+                                                <del>
+                                                    {$d.integral} 积分
+                                                </del>
+                                            </if>
+
+                                        </p>
+                                    </div>
+                                    <!--11.23进度条部分zyl-->
+                                    <!--是秒杀-->
+                                    <if condition="($d.is_sec eq 1)">
+                                        <div class="skill-lod">
+                                            <!--秒杀完毕-->
+                                            <if condition="($d.is_sec eq 1) AND ($d.sec_stock eq 0)">
+                                                <span class="sale-count">{$d.sec_count}件已秒杀完</span>
+                                                <else/>
+                                                <!--尚未秒杀完毕-->
+                                                <span class="sale-count" id="sale-count-b">已秒<em>
+                                                    <php>echo
+                                                        intval(($d['sec_count']-$d['sec_stock'])*100/$d['sec_count']);
+                                                    </php>
+                                                    %</em></span>
+
+                                                <div id="progress-b" class="kill-progress">
+                                                    <div class="skill-pro-bg">
+                                                        <p class="skill-iteam-progress">
+                                                            <span class="skill-pro-insetbg">
+                                                                <span class="skill-iteam-pro"
+                                                                      style="width: <php>echo intval(($d['sec_count']-$d['sec_stock'])*100/$d['sec_count']);</php>%;"></span>
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </if>
+                                        </div>
+                                    </if>
+                                    <!--11.23进度条部分zyl结束-->
+
+
+                                    <!--不是秒杀-->
+                                    <if condition="($d.is_sec eq 0) AND ($d.stock neq 0)">
+                                        <span class="skill-count">积分兑换</span>
+                                    </if>
+                                    <if condition="($d.is_sec eq 0) AND ($d.stock eq 0)">
+                                        <a class="kill-btn-side" href="__CONTROLLER__/details/id/{$d.id}">
+                                            <span class="skill-count kill-spestal">已售完</span>
+                                        </a>
+                                    </if>
+                                    <!--尚未秒杀完毕-->
+                                    <if condition="($d.is_sec eq 1) AND ($d.sec_stock neq 0)">
+                                        <span class="skill-count">去秒杀</span>
+                                    </if>
+
+                                    <if condition="($d.is_sec eq 1) AND ($d.sec_stock eq 0)">
+                                        <a class="kill-btn-side" href="__CONTROLLER__/details/id/{$d.id}">
+                                            <span class="skill-count kill-spestal">已秒完</span>
+                                        </a>
+                                    </if>
+                                    <!--秒杀完毕-->
+                                    <if condition="($d.is_sec eq 1) AND ($d.sec_stock eq 0)">
+                                        <div class="mask">
+                                            <p>秒杀完</p>
+                                        </div>
+                                    </if>
+                                </a>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </empty>
+
+
+</block>
+<block name="footer"></block>
+<block name="js">
+    <script type="text/javascript" src="__PUBLIC__/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/weui.min.js"></script>
+    <!--<script type="text/javascript" src="__PUBLIC__/js/example.js"></script>-->
+
+    <script type="text/javascript" class="searchbar js_show">
+        $(function () {
+            var $searchBar = $('#searchBar'),
+                    $searchResult = $('#searchResult'),
+                    $searchText = $('#searchText'),
+                    $searchInput = $('#searchInput'),
+                    $searchClear = $('#searchClear'),
+                    $searchCancel = $('#searchCancel');
+
+            function hideSearchResult() {
+                $searchResult.hide();
+                $searchInput.val('');
+            }
+
+            function cancelSearch() {
+                hideSearchResult();
+                $searchBar.removeClass('weui-search-bar_focusing');
+                $searchText.show();
+            }
+
+            $searchText.on('click', function () {
+                $searchBar.addClass('weui-search-bar_focusing');
+                $searchInput.focus();
+            });
+            $searchInput
+                    .on('blur', function () {
+                        if (!this.value.length) cancelSearch();
+                    })
+                    .on('input', function () {
+                        if (this.value.length) {
+                            $searchResult.show();
+                        } else {
+                            $searchResult.hide();
+                        }
+                    })
+            ;
+            $searchClear.on('click', function () {
+                hideSearchResult();
+                $searchInput.focus();
+            });
+            $searchCancel.on('click', function () {
+                cancelSearch();
+                $searchInput.blur();
+            });
+        });</script>
+</block>

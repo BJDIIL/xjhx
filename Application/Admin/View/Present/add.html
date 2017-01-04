@@ -1,0 +1,363 @@
+<extend name="Common/layout"/>
+<block name="css">
+    <link rel="stylesheet" href="__PUBLIC__/css/jquery-ui.1.12.0.css">
+    <link href="__PUBLIC__/third/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet"
+          media="screen">
+    <link rel="stylesheet" href="__PUBLIC__/third/cropper-2.2.0/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/third/cropper-2.2.0/dist/cropper.css">
+    <link rel="stylesheet" href="__PUBLIC__/third/cropper-2.2.0/demo/css/main.css">
+    <link rel="stylesheet" href="__PUBLIC__/third/uploadify/uploadify.css">
+    <style>
+        .datetimepicker {
+            background-color: lightgoldenrodyellow;
+            position: absolute;
+            display: none;
+        }
+    </style>
+</block>
+<block name="content">
+    <div class="panel admin-panel">
+        <div class="panel-head" id="add">
+            <strong><span class="icon-pencil-square-o"></span>增加</strong></div>
+        <div class="body-content">
+            <form method="post" class="form-x" action="">
+                <input type="hidden" name="id" value="{$data.id}">
+                <input type="hidden" name="xiajia" value="{$data.xiajia}">
+                <input type="hidden" name="is_sec" value="{$data.is_sec}">
+                <input type="hidden" name="self_delivery" value="{$data.self_delivery}">
+
+                <div class="form-group">
+                    <div class="label">
+                        <label>名称：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w100" value="{$data.name}" name="name"
+                               data-validate="required:请输入名称"/>
+
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>描述：</label>
+                    </div>
+                    <div class="field">
+                        <textarea class="input" name="desc" style=" height:90px;">{$data.desc}</textarea>
+
+                        <div class="tips"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="label">
+                        <label class="control-label col-md-2">图片</label>
+                    </div>
+                    <div class="field">
+                        <div id="cropper" class="container hidden">
+
+                            <div id="queue"></div>
+                            <input id="file_upload" name="file_upload" type="file" multiple="true">
+
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <!-- <h3 class="page-header">Demo:</h3> -->
+                                    <div class="img-container" style="height:516px; width:650px;">
+                                        <img id="image"
+                                             src="<php>if($data['image']) echo $data['image']; else echo 'Public/img/default.jpg';</php>"
+                                             alt="Picture">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- <h3 class="page-header">Preview:</h3> -->
+                                    <div class="docs-preview clearfix">
+                                        <div class="img-preview preview-lg"></div>
+                                        <div class="img-preview preview-md"></div>
+                                        <div class="img-preview preview-sm"></div>
+                                        <div class="img-preview preview-xs"></div>
+                                    </div>
+                                    <!-- <h3 class="page-header">Data:</h3> -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 docs-buttons">
+
+                                    <button type="button" class="button btn-default" title="Crop" data-method="cut">
+                                    <span class="docs-tooltip" data-toggle="tooltip" title="保存">
+                                        <span class="fa fa-check"></span>
+                                    </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+
+                    </div>
+                    <div class="field">
+                        <div class="col-md-10">
+
+                            <div class="avatar-wrapper">
+                                <div class="gravatar-wrapper-164">
+
+                                    <img src="<php>if($data['image']) echo $data['image']; else echo 'Public/img/default.jpg';</php>"
+                                         alt="" width="280px"
+                                         class="main-image">
+                                </div>
+                                <input type="hidden" name="image"
+                                       value="<php>if($data['image']) echo $data['image']; else echo 'Public/img/default.jpg';</php>">
+                                <br>
+                                <a id="change-picture" class="button btn-default">修改图片</a>
+                            </div>
+                            <div id="picture-popup"></div>
+                            <div id="change-picture-progress">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<div class="label">-->
+                <!--<label>市场价：</label>-->
+                <!--</div>-->
+                <!--<div class="field">-->
+                <!--<input type="text" class="input w50" value="{$data.price}" name="price"-->
+                <!--data-validate="digits:请输入市场价"/>-->
+
+                <!--<div class="tips"></div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <div class="label">
+                        <label>兑换积分：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" value="{$data.integral}" name="integral"
+                               data-validate="require,number:请输入兑换所需积分"/>
+
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>总量：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" value="{$data.count}" name="count"
+                               data-validate="number:请输入总量"/>
+
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>总库存：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" value="{$data.stock}" name="stock"
+                               data-validate="number:请输入总库存"/>
+
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>下架：</label>
+                    </div>
+                    <div class="field">
+                        <div class="button-group radio">
+
+                            <label data-value="1" data-name="xiajia"
+                                   class="button <php>if($data['xiajia'] == 1) echo 'active'; </php>">
+                                <span class="icon icon-check"></span>
+                                <input value="1" type="radio" checked="checked">是
+                            </label>
+                            <label data-value="0" data-name="xiajia"
+                                   class="button <php>if($data['xiajia'] == 0) echo 'active'; </php>">
+                                <span class="icon icon-times"></span>
+                                <input value="0" type="radio" checked="checked">否
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="label">
+                        <label>可以秒杀：</label>
+                    </div>
+                    <div class="field">
+                        <div class="button-group radio">
+                            <label data-value="1" data-name="is_sec"
+                                   class="button <php> if($data['is_sec'] == 1) echo 'active'; </php>">
+                                <span class="icon icon-check"></span>
+                                <input value="1" type="radio" checked="checked">是
+                            </label>
+                            <label data-value="0" data-name="is_sec"
+                                   class="button <php>if($data['is_sec'] == 0) echo 'active'; </php>">
+                                <span class="icon icon-times"></span>
+                                <input value="0" type="radio" checked="checked">否
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>秒杀时段：</label>
+                    </div>
+                    <div class="field">
+                        <if condition="$data.sec_start eq 0">
+                            <input type="text" class="input w50" value="<php> echo date('Y-m-d H:i:s');</php>"
+                                   id="sec_start"
+                                   name="sec_start"/>
+                            <else/>
+                            <input type="text" class="input w50" value="{$data.sec_start|time_to_datetime}" id="sec_start"
+                                   name="sec_start"/>
+                        </if>
+
+                        <if condition="$data.sec_end eq 0">
+                            <input type="text" class="input w50" value="<php> echo date('Y-m-d H:i:s');</php>"
+                                   id="sec_end"
+                                   name="sec_end"/>
+                            <else/>
+                            <input type="text" class="input w50" value="{$data.sec_end|time_to_datetime}" id="sec_end"
+                                   name="sec_end"/>
+                        </if>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="label">
+                        <label>秒杀积分：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" value="{$data.sec_integral}" name="sec_integral"
+                               data-validate="number:请输入秒杀所需积分"/>
+
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>秒杀总量：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" value="{$data.sec_count}" name="sec_count"
+                               data-validate="number:请输入本次可以秒杀的数量,不得超过礼品的总数量"/>
+
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label>秒杀库存：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" value="{$data.sec_stock}" name="sec_stock"
+                               data-validate="number:请输入秒杀的库存，注意不得超过总库存"/>
+
+                        <div class="tips"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="label">
+                        <label>仅支持自提：</label>
+                    </div>
+                    <div class="field">
+                        <div class="button-group radio">
+                            <label data-value="1" data-name="self_delivery"
+                                   class="button <php> if($data['self_delivery'] == 1) echo 'active'; </php>">
+                                <span class="icon icon-check"></span>
+                                <input value="1" type="radio" checked="checked">是
+                            </label>
+                            <label data-value="0" data-name="self_delivery"
+                                   class="button <php>if($data['self_delivery'] == 0) echo 'active'; </php>">
+                                <span class="icon icon-times"></span>
+                                <input value="0" type="radio" checked="checked">否
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="label">
+                        <label>排序：</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" class="input w50" name="sort" value="{$data.sort}"
+                               data-validate="number:排序必须为数字"/>
+
+                        <div class="tips"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="label">
+                        <label></label>
+                    </div>
+                    <div class="field">
+                        <button class="button bg-main icon-check-square-o" type="button" id="save"> 提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</block>
+<block name="js">
+    <script src="__PUBLIC__/js/jquery-2.2.2.min.js"></script>
+    <script src="__PUBLIC__/js/jquery-ui-1.11.1.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--<script src="__PUBLIC__/third/cropper-2.2.0/assets/js/jquery.min.js"></script>-->
+    <script src="__PUBLIC__/third/cropper-2.2.0/assets/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/third/cropper-2.2.0/dist/cropper.js"></script>
+    <script src="__PUBLIC__/admin/js/md5.js"></script>
+    <script src="__PUBLIC__/admin/js/cropper.js"></script>
+    <script src="__PUBLIC__/third/uploadify/jquery.uploadify.min.js"></script>
+
+    <script type="text/javascript" src="__PUBLIC__/third/bootstrap-datetimepicker/bootstrap-datetimepicker.js"
+            charset="UTF-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/third/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js"
+            charset="UTF-8"></script>
+    <script type="text/javascript">
+
+        var config = {
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: true,
+            startView: 2,
+            minView: 0,
+            forceParse: 0,
+            format: 'yyyy-mm-dd hh:ii',
+        };
+        $('#sec_start').datetimepicker(config);
+        $('#sec_end').datetimepicker(config);
+
+    </script>
+    <script>
+        $('#save').click(function (event) {
+            $.ajax({
+                url: 'index.php?s=/Admin/Present/add',
+                type: 'POST',
+                dataType: 'json',
+                data: $('form').serialize(),
+                success: function (data) {
+                    if (data == 10005) {
+                        alert('保存成功');
+                        window.location.href = 'index.php?s=/Admin/Present/index';
+                    } else {
+                        alert("保存失败");
+                    }
+                },
+                error: function () {
+                },
+            });
+        });
+    </script>
+
+</block>
